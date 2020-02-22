@@ -2,13 +2,16 @@ const fileSystem = require('fs');
 const fetch = require('node-fetch');
 const parser = require('node-html-parser');
 
-var url='https://clist.by/'
+var url = 'https://clist.by/'
+var express = require("express")
+//var routes = require("./routes/routes.js")
+var app = express();
+var dataSet = [];
 
 function scrape(body){
 	
 	const dom = parser.parse(body);
 	var nodeList = dom.querySelectorAll('.row.contest.running');
-	var dataSet = [];
 	
 	//console.log(nodeList);
 	
@@ -28,4 +31,14 @@ function scrape(body){
 }
 
 fetch(url).then(res => res.text()).then(body => scrape(body));
+
+app.get('/',(req,res) => {
+	res.send(dataSet);
+});
+
+var server = app.listen(3000, () =>{
+	console.log('Listening to port 3000...');	
+});
+
+//module.exports(dataSet);
 
