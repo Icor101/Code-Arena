@@ -1,5 +1,6 @@
 package com.example.codearena;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -22,7 +23,22 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-class RestClient {
+class RestClient extends AsyncTask<String, Void, Void> {
+    @Override
+    protected Void doInBackground(String... urls) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            return Execute(RequestMethod.GET, urls[0], null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public enum RequestMethod {
         GET,
         POST
@@ -31,7 +47,7 @@ class RestClient {
     private int responseCode = 0;
     private String message, response;
 
-    void Execute(RequestMethod method, String url, ArrayList<NameValuePair> headers, ArrayList<NameValuePair> params) throws Exception {
+    Void Execute(RequestMethod method, String url, ArrayList<NameValuePair> headers, ArrayList<NameValuePair> params) throws Exception {
         switch (method) {
             case GET: {
                 //add params
@@ -70,6 +86,7 @@ class RestClient {
                 break;
             }
         }
+        return null;
     }
 
     private ArrayList<NameValuePair> addCommonHeaderField(ArrayList<NameValuePair> _header) {
@@ -80,24 +97,25 @@ class RestClient {
     private void executeRequest(HttpUriRequest request, String url) {
         HttpClient client = new DefaultHttpClient();
         HttpResponse httpResponse;
-        //Log.d("Checking","Check Successful");
+        Log.d("Checking", "Outside Check Successful");
         try {
             httpResponse = client.execute(request);
-            Log.d("Checking","Outside Check Successful");
+            Log.d("Checking", "Outside Check Successful");
             responseCode = httpResponse.getStatusLine().getStatusCode();
             message = httpResponse.getStatusLine().getReasonPhrase();
             HttpEntity entity = httpResponse.getEntity();
 
             if (entity != null) {
+                Log.d("Checking", "Check Successful");
                 FileWriter file = new FileWriter("C:\\Users\\riyam\\Desktop\\check.txt");
-                file.write(responseCode+"\n");
+                file.write(responseCode + "\n");
                 InputStream instream = entity.getContent();
                 response = convertStreamToString(instream);
-                Log.d("Checking","Check Successful");
+                Log.d("Response", response);
+                Log.d("Checking", "Check Successful");
                 instream.close();
-            }
-            else
-                Log.d("Checking","Check Successful");
+            } else
+                Log.d("Checking", "Check Successful");
         } catch (Exception e) {
             Log.d("Debug", e.toString());
         }
@@ -113,7 +131,7 @@ class RestClient {
             }
             is.close();
         } catch (IOException e) {
-            Log.d("Debug", e.getMessage());
+            Log.d("Debug", e.toString());
         }
         return sb.toString();
     }

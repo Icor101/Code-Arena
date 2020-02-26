@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        RestClient rc = new RestClient();
+
         try {
-            rc.Execute(RestClient.RequestMethod.GET, "http://34.69.234.16:3300/live", null, null);
+            new RestClient().execute("https://34.69.234.16:3300/live");
         } catch (Exception e) {
             e.printStackTrace();
         }
