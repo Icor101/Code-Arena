@@ -5,6 +5,7 @@ import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -77,7 +78,7 @@ class RestClient {
     }
 
     private void executeRequest(HttpUriRequest request, String url) {
-        DefaultHttpClient client = new DefaultHttpClient();
+        HttpClient client = new DefaultHttpClient();
         HttpResponse httpResponse;
         //Log.d("Checking","Check Successful");
         try {
@@ -98,7 +99,7 @@ class RestClient {
             else
                 Log.d("Checking","Check Successful");
         } catch (Exception e) {
-            Log.d("Debug", e.getMessage());
+            Log.d("Debug", e.toString());
         }
     }
 
