@@ -1,11 +1,13 @@
 package com.example.codearena;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private List<ContestDetails> mDataSet;
+    private Context context;
+    private List<ContestDetails> mDataSet=new ArrayList<>();
     private MyViewHolder viewHolder;
 
     @NonNull
@@ -31,7 +34,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.platform.setText(curr.platform);
         holder.starting_time.setText(curr.start_time);
         holder.duration.setText(curr.duration);
-        //holder.parent.setBackgroundColor(Color.rgb(0,0,10));
     }
 
     @Override
@@ -55,7 +57,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
-    MyAdapter(List<ContestDetails> myDataSet) {
-        mDataSet = myDataSet;
+    MyAdapter(Context context, List<ContestDetails> myDataSet) {
+        this.context = context;
+        mDataSet.addAll(myDataSet);
     }
 }
