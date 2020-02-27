@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Code Arena</string>
+    <string name="liveUrl">http://34.69.234.16:3300/live</string>
 </resources>
