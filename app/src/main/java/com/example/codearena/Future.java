@@ -28,14 +28,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Future extends Fragment {
-    RecyclerView recyclerView;
-    List<ContestDetails> myDataset;
+    private RecyclerView recyclerView;
+    private List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
+    private RestClient rc;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RestClient rc = new RestClient();
+        rc = new RestClient();
         rc.execute(getString(R.string.upcomingUrl));
     }
 
@@ -43,10 +44,11 @@ public class Future extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.future, container, false);
-        recyclerView = view.findViewById(R.id.my_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView = view.findViewById(R.id.my_recycler_view_future);
+       // mAdapter = new MyAdapter(getActivity(), myDataset);
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         return view;
     }
 

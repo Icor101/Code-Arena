@@ -16,14 +16,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:tabBackground="@android:color/holo_blue_dark"
-        app:tabSelectedTextColor="@android:color/white">
+        app:tabIndicatorColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Small">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Past"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout="@layout/past"
-            android:text="Past"
+            android:text="PAST"
             android:visibility="visible"
             tools:visibility="visible" />
 
@@ -31,13 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout="@layout/live"
-            android:text="Live" />
+            android:text="LIVE" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout="@layout/future"
-            android:text="Future" />
+            android:text="FUTURE" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
