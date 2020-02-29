@@ -46,7 +46,6 @@ public class Past extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.past, container, false);
         recyclerView = view.findViewById(R.id.my_recycler_view_past);
-        //mAdapter = new MyAdapter(getActivity(), myDataset);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -46,7 +46,6 @@ public class Live extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.live, container, false);
         recyclerView = view.findViewById(R.id.my_recycler_view_live);
-        //mAdapter = new MyAdapter(getContext(), myDataset);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
