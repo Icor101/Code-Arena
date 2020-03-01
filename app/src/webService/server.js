@@ -6,7 +6,8 @@ var express = require("express")
 
 var app = express();
 
-function scrape(body,obj,num){
+function scrape(body,num){
+	var obj = [];
 	var nodeList = [];
 	const dom = parser.parse(body);
 
@@ -37,8 +38,7 @@ function scrape(body,obj,num){
 }
 
 app.get('/live',(req,res) => {
-	var live =[];
-	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,live,1)));
+	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,1)));
 	p.then(function(v){
 		res.send(v);
 		console.log(v);
@@ -48,8 +48,7 @@ app.get('/live',(req,res) => {
 });
 
 app.get('/past',(req,res) => {
-	var past = [];
-	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,past,2)));
+	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,2)));
 	p.then(function(v){
 		res.send(v);
 		console.log(v);
@@ -59,8 +58,7 @@ app.get('/past',(req,res) => {
 });
 
 app.get('/upcoming',(req,res) => {
-	var future = [];
-	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,future,3)));
+	var p = Promise.resolve(fetch(url).then(res => res.text()).then(body => scrape(body,3)));
 	p.then(function(v){
 		res.send(v);
 		console.log(v);
