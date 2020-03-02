@@ -49,6 +49,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.duration.setText(curr.duration);
         ImageButton imageButton = holder.imageButton;
         if (curr.label.equals("past")) {
+            holder.reminderTv.setText("Contest over");
             imageButton.setImageResource(R.drawable.ic_contest_over);
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,7 +117,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView contest_title, starting_time, platform, duration;
+        TextView contest_title, starting_time, platform, duration,reminderTv;
         ImageButton imageButton;
         LinearLayout parent;
 
@@ -128,6 +129,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             platform = itemView.findViewById(R.id.platform);
             duration = itemView.findViewById(R.id.duration);
             imageButton = itemView.findViewById(R.id.reminderIcon);
+            reminderTv = itemView.findViewById(R.id.reminderTextView);
         }
     }
 
