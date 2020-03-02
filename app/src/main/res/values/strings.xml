@@ -3,4 +3,5 @@
     <string name="liveUrl">http://34.69.234.16:3300/live</string>
     <string name="pastUrl">http://34.69.234.16:3300/past</string>
     <string name="upcomingUrl">http://34.69.234.16:3300/upcoming</string>
+    <string name="reminder">Calendar event created</string>
 </resources>

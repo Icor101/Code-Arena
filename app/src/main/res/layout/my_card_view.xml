@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -16,8 +17,8 @@
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
+            android:layout_width="414dp"
+            android:layout_height="177dp"
             android:orientation="vertical">
 
             <TextView
@@ -52,6 +53,43 @@
                 android:layout_marginTop="20px"
                 android:gravity="center"
                 android:text="TextView" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/reminderIcon"
+                    android:layout_width="52dp"
+                    android:layout_height="43dp"
+                    android:layout_toStartOf="@+id/reminderTextView"
+                    android:layout_toLeftOf="@+id/reminderTextView"
+                    android:background="@color/cardview_light_background"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toStartOf="@+id/reminderTextView"
+                    card_view:layout_constraintHorizontal_bias="1.0"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:srcCompat="@drawable/ic_reminder" />
+
+                <TextView
+                    android:id="@+id/reminderTextView"
+                    android:layout_width="123dp"
+                    android:layout_height="31dp"
+                    android:layout_marginEnd="144dp"
+                    android:layout_marginRight="144dp"
+                    android:text="Set Reminder"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    card_view:fontFamily="@font/trykker"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.511" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
