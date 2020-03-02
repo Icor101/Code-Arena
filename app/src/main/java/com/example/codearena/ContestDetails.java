@@ -5,8 +5,10 @@ class ContestDetails {
     String contest_title;
     String platform;
     String duration;
+    String label;
 
-    ContestDetails(String start_time, String contest_title, String platform, String duration) {
+    ContestDetails(String label,String start_time, String contest_title, String platform, String duration) {
+        this.label = label;
         this.start_time = start_time;
         this.contest_title = contest_title;
         this.platform = platform;
@@ -29,9 +31,14 @@ class ContestDetails {
         return duration;
     }
 
+    public String getLabel(){
+        return label;
+    }
+
     @Override
     public String toString() {
         return "ContestDetails{" +
+                "label= '" + label +'\''+
                 "start_time='" + start_time + '\'' +
                 ", contest_title='" + contest_title + '\'' +
                 ", platform='" + platform + '\'' +

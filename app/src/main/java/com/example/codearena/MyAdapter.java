@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,55 +48,65 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.starting_time.setText(curr.start_time);
         holder.duration.setText(curr.duration);
         ImageButton imageButton = holder.imageButton;
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_INSERT);
-                intent.setType("vnd.android.cursor.item/event");
-
-                String properStartDateTime = "";
-                long now = System.currentTimeMillis();
-                int month = LocalDate.now().getMonth().ordinal(), year = LocalDate.now().getYear();
-                String beginTime = holder.starting_time.getText().toString();
-                String[] timeDetailsArray = beginTime.split(" ");
-                String[] dateDetailsArray = timeDetailsArray[0].split("\\.");
-                Log.d("timeDetailsArray:", Arrays.toString(timeDetailsArray));
-                if (Integer.parseInt(dateDetailsArray[1]) < month) {
-                    properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year + 1) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-                } else
-                    properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy E HH:mm");
-                LocalDateTime properStartDateTimeObj = LocalDateTime.parse(properStartDateTime, df);
-                ZonedDateTime zdt1 = ZonedDateTime.of(properStartDateTimeObj, ZoneId.systemDefault());
-
-                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
-
-                String interval = holder.duration.getText().toString();
-                int noOfDays, hours, minutes;
-                if (interval.contains("days")) {
-                    String[] arr = interval.split(" ");
-                    noOfDays = Integer.parseInt(arr[0]);
-                    zdt1 = zdt1.plusDays(noOfDays);
-                } else {
-                    String[] arr = interval.split(":");
-                    hours = Integer.parseInt(arr[0]);
-                    minutes = Integer.parseInt(arr[1]);
-                    zdt1 = zdt1.plusHours(hours).plusMinutes(minutes);
+        if (curr.label.equals("past")) {
+            imageButton.setImageResource(R.drawable.ic_contest_over);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast toast = Toast.makeText(context,"Contest already over",Toast.LENGTH_SHORT);
+                    toast.show();
                 }
+            });
+        } else {
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_INSERT);
+                    intent.setType("vnd.android.cursor.item/event");
 
-                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, zdt1.toInstant().toEpochMilli());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+                    String properStartDateTime = "";
+                    int month = LocalDate.now().getMonth().ordinal(), year = LocalDate.now().getYear();
+                    String beginTime = holder.starting_time.getText().toString();
+                    String[] timeDetailsArray = beginTime.split(" ");
+                    String[] dateDetailsArray = timeDetailsArray[0].split("\\.");
+                    Log.d("timeDetailsArray:", Arrays.toString(timeDetailsArray));
+                    if (Integer.parseInt(dateDetailsArray[1]) < month) {
+                        properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year + 1) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
+                    } else
+                        properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
 
-                intent.putExtra(CalendarContract.Events.TITLE, holder.contest_title.getText().toString());
-                intent.putExtra(CalendarContract.Events.DESCRIPTION, "This is a coding contest");
-                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, holder.platform.getText().toString());
-                intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy E HH:mm");
+                    LocalDateTime properStartDateTimeObj = LocalDateTime.parse(properStartDateTime, df);
+                    ZonedDateTime zdt1 = ZonedDateTime.of(properStartDateTimeObj, ZoneId.systemDefault());
 
-                context.startActivity(intent);
-            }
-        });
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
+
+                    String interval = holder.duration.getText().toString();
+                    int noOfDays, hours, minutes;
+                    if (interval.contains("days")) {
+                        String[] arr = interval.split(" ");
+                        noOfDays = Integer.parseInt(arr[0]);
+                        zdt1 = zdt1.plusDays(noOfDays);
+                    } else {
+                        String[] arr = interval.split(":");
+                        hours = Integer.parseInt(arr[0]);
+                        minutes = Integer.parseInt(arr[1]);
+                        zdt1 = zdt1.plusHours(hours).plusMinutes(minutes);
+                    }
+
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, zdt1.toInstant().toEpochMilli());
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+
+                    intent.putExtra(CalendarContract.Events.TITLE, holder.contest_title.getText().toString());
+                    intent.putExtra(CalendarContract.Events.DESCRIPTION, "This is a coding contest");
+                    intent.putExtra(CalendarContract.Events.EVENT_LOCATION, holder.platform.getText().toString());
+                    intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -117,7 +128,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             platform = itemView.findViewById(R.id.platform);
             duration = itemView.findViewById(R.id.duration);
             imageButton = itemView.findViewById(R.id.reminderIcon);
-
         }
     }
 

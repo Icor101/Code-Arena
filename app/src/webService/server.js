@@ -23,8 +23,14 @@ function scrape(body,num){
 
 	for(var i=0;i<nodeList.length;i++){
 
-		var json = {start_time:"",contest_title:"",platform:"",duration:""};
+		var json = {label:"",start_time:"",contest_title:"",platform:"",duration:""};
 
+		if(num==1)
+			json.label = "live";
+		else if(num==2)
+			json.label = "past";
+		else
+			json.label = "future";
 		json.start_time = nodeList[i].querySelector('.col-md-5.col-sm-12.start-time').text.trim();
 		json.duration = nodeList[i].querySelector('.col-md-3.col-sm-6.duration').text.trim();
 		json.contest_title = nodeList[i].querySelector('.contest_title').querySelector('a').text.trim();
