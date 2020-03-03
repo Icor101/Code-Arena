@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,12 +41,21 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return viewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         ContestDetails curr = mDataSet.get(position);
+
+        String startDateTime = curr.start_time;
+        String[] timeDetailsArr = startDateTime.split(" ");
+        String time = timeDetailsArr[timeDetailsArr.length - 1];
+        LocalTime startTime = LocalTime.parse(time);
+        startTime = startTime.plusHours(5).plusMinutes(30);
+        String modifiedTime = timeDetailsArr[0] + " " + timeDetailsArr[1] + " " + startTime.toString();
+
         holder.contest_title.setText(curr.contest_title);
         holder.platform.setText(curr.platform);
-        holder.starting_time.setText(curr.start_time);
+        holder.starting_time.setText(modifiedTime);
         holder.duration.setText(curr.duration);
         ImageButton imageButton = holder.imageButton;
         if (curr.label.equals("past")) {
@@ -54,7 +64,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast toast = Toast.makeText(context,"Contest already over",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context, "Contest already over", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             });
@@ -84,11 +94,15 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
 
                     String interval = holder.duration.getText().toString();
-                    int noOfDays, hours, minutes;
+                    int noOfDays, hours, minutes, noOfYears;
                     if (interval.contains("days")) {
                         String[] arr = interval.split(" ");
                         noOfDays = Integer.parseInt(arr[0]);
                         zdt1 = zdt1.plusDays(noOfDays);
+                    } else if (interval.contains("years")) {
+                        String[] arr = interval.split(" ");
+                        noOfYears = Integer.parseInt(arr[0]);
+                        zdt1 = zdt1.plusYears(noOfYears);
                     } else {
                         String[] arr = interval.split(":");
                         hours = Integer.parseInt(arr[0]);
@@ -117,7 +131,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView contest_title, starting_time, platform, duration,reminderTv;
+        TextView contest_title, starting_time, platform, duration, reminderTv;
         ImageButton imageButton;
         LinearLayout parent;
 
