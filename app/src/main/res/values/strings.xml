@@ -4,4 +4,8 @@
     <string name="pastUrl">http://34.69.234.16:3300/past</string>
     <string name="upcomingUrl">http://34.69.234.16:3300/upcoming</string>
     <string name="reminder">Calendar event created</string>
+    <string name="contest_title"><b>Contest name:</b></string>
+    <string name="contest_start_time"><b>Start time:</b></string>
+    <string name="contest_platform"><b>Platform:</b></string>
+    <string name="contest_duration"><b>Duration:</b></string>
 </resources>

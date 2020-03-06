@@ -44,7 +44,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
-        ContestDetails curr = mDataSet.get(position);
+        final ContestDetails curr = mDataSet.get(position);
 
         String startDateTime = curr.start_time;
         String[] timeDetailsArr = startDateTime.split(" ");
@@ -121,6 +121,19 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     context.startActivity(intent);
                 }
             });
+            ImageButton shareBtn = holder.shareButton;
+            shareBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    String shareBody = context.getText(R.string.contest_title) + " " + curr.contest_title + "\n" + context.getText(R.string.contest_platform) + " " + curr.platform + "\n" + context.getText(R.string.contest_start_time) + " " + curr.start_time + "\n" + context.getText(R.string.contest_duration) + " " + curr.duration;
+                    String shareSub = "Sharing contest details";
+                    intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+                    intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                    context.startActivity(Intent.createChooser(intent, "Share via"));
+                }
+            });
         }
     }
 
@@ -132,7 +145,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView contest_title, starting_time, platform, duration, reminderTv;
-        ImageButton imageButton;
+        ImageButton imageButton, shareButton;
         LinearLayout parent;
 
         MyViewHolder(@NonNull View itemView) {
@@ -144,6 +157,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             duration = itemView.findViewById(R.id.duration);
             imageButton = itemView.findViewById(R.id.reminderIcon);
             reminderTv = itemView.findViewById(R.id.reminderTextView);
+            shareButton = itemView.findViewById(R.id.shareButton);
         }
     }
 

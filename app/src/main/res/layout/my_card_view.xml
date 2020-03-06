@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -88,6 +89,19 @@
                     card_view:layout_constraintRight_toRightOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="0.511" />
+
+                <ImageButton
+                    android:id="@+id/shareButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintHorizontal_bias="0.866"
+                    card_view:layout_constraintStart_toEndOf="@+id/reminderTextView"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.692"
+                    card_view:srcCompat="@drawable/ic_share" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
