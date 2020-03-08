@@ -1,35 +1,30 @@
 package com.example.codearena;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.content.ClipData;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.Calendar;
-
-import androidx.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
-    ViewPager viewPager;
-    TabLayout tabLayout;
-    FragmentAdapter pagerAdapter;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
     LoadingDialog loadingDialog;
+    DrawerLayout drawer;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,21 +62,55 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
+
         loadingDialog = new LoadingDialog(MainActivity.this);
 
-        viewPager = findViewById(R.id.pager);
-        tabLayout = findViewById(R.id.tabs);
-        pagerAdapter = new FragmentAdapter(getSupportFragmentManager());
+    }
 
-        //Add fragments here
-        pagerAdapter.addFragment(new Past(), "PAST");
-        pagerAdapter.addFragment(new Live(), "LIVE");
-        pagerAdapter.addFragment(new Future(), "FUTURE");
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+                break;
+            case R.id.nav_about_us:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutUsFragment()).commit();
+                break;
+            case R.id.nav_filter:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FilterFragment()).commit();
+                break;
+            case R.id.nav_developers:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersFragment()).commit();
+                break;
 
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(1);
-        tabLayout.setupWithViewPager(viewPager);
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
     }
 }
 

@@ -8,4 +8,7 @@
     <string name="contest_start_time"><b>Start time:</b></string>
     <string name="contest_platform"><b>Platform:</b></string>
     <string name="contest_duration"><b>Duration:</b></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_us_tv_content">This application allows users to view details of live/upcoming programming contests. The aim of this app is to provide an easy-to-use dashboard for competitive programmers where they can find all the required information. CodeArena has a user friendly UI, it allows the user to mark events in their calendar, share details about contests and filter contests on the basis of coding platforms. The information is fetched from the website clist.by</string>
 </resources>
