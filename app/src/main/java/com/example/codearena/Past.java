@@ -35,6 +35,7 @@ public class Past extends Fragment {
     private List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
     private RestClient rc;
+    private TextView emptyList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,10 +48,16 @@ public class Past extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.past, container, false);
+        emptyList = view.findViewById(R.id.emptyList);
         recyclerView = view.findViewById(R.id.my_recycler_view_past);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if (myDataset != null && myDataset.isEmpty())
+            emptyList.setVisibility(View.VISIBLE);
+        else
+            emptyList.setVisibility(View.INVISIBLE);
         return view;
     }
 

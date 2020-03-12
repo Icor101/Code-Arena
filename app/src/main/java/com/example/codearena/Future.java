@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -32,6 +33,7 @@ public class Future extends Fragment {
     private List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
     private RestClient rc;
+    private TextView emptyList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,11 +46,16 @@ public class Future extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.future, container, false);
+        emptyList = view.findViewById(R.id.emptyList);
         recyclerView = view.findViewById(R.id.my_recycler_view_future);
-        //mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if (myDataset != null && myDataset.isEmpty())
+            emptyList.setVisibility(View.VISIBLE);
+        else
+            emptyList.setVisibility(View.INVISIBLE);
         return view;
     }
 

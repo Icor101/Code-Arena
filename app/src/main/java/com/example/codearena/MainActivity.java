@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     LoadingDialog loadingDialog;
     DrawerLayout drawer;
+    static TabLayoutScreenFragment tabLayoutScreenFragment;
+    AboutUsFragment aboutUsFragment;
+    FilterFragment filterFragment;
+    DevelopersFragment developersFragment;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,8 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        tabLayoutScreenFragment = new TabLayoutScreenFragment();
+        aboutUsFragment = new AboutUsFragment();
+        filterFragment = new FilterFragment();
+        developersFragment = new DevelopersFragment();
+
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
@@ -88,16 +97,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,tabLayoutScreenFragment ).commit();
                 break;
             case R.id.nav_about_us:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutUsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, aboutUsFragment).commit();
                 break;
             case R.id.nav_filter:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FilterFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, filterFragment).commit();
                 break;
             case R.id.nav_developers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, developersFragment).commit();
                 break;
 
         }

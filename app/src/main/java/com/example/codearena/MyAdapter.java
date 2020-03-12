@@ -33,6 +33,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,7 +46,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         final ContestDetails curr = mDataSet.get(position);
-
+        Log.d("Set", FilterFragment.set.toString());
         String startDateTime = curr.start_time;
         String[] timeDetailsArr = startDateTime.split(" ");
         String time = timeDetailsArr[timeDetailsArr.length - 1];
@@ -53,87 +54,92 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         startTime = startTime.plusHours(5).plusMinutes(30);
         String modifiedTime = timeDetailsArr[0] + " " + timeDetailsArr[1] + " " + startTime.toString();
 
-        holder.contest_title.setText(curr.contest_title);
-        holder.platform.setText(curr.platform);
-        holder.starting_time.setText(modifiedTime);
-        holder.duration.setText(curr.duration);
-        ImageButton imageButton = holder.imageButton;
-        if (curr.label.equals("past")) {
-            holder.reminderTv.setText("Contest over");
-            imageButton.setImageResource(R.drawable.ic_contest_over);
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast toast = Toast.makeText(context, "Contest already over", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            });
-        } else {
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_INSERT);
-                    intent.setType("vnd.android.cursor.item/event");
-
-                    String properStartDateTime = "";
-                    int month = LocalDate.now().getMonth().ordinal(), year = LocalDate.now().getYear();
-                    String beginTime = holder.starting_time.getText().toString();
-                    String[] timeDetailsArray = beginTime.split(" ");
-                    String[] dateDetailsArray = timeDetailsArray[0].split("\\.");
-                    Log.d("timeDetailsArray:", Arrays.toString(timeDetailsArray));
-                    if (Integer.parseInt(dateDetailsArray[1]) < month) {
-                        properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year + 1) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-                    } else
-                        properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-
-                    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy E HH:mm");
-                    LocalDateTime properStartDateTimeObj = LocalDateTime.parse(properStartDateTime, df);
-                    ZonedDateTime zdt1 = ZonedDateTime.of(properStartDateTimeObj, ZoneId.systemDefault());
-
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
-
-                    String interval = holder.duration.getText().toString();
-                    int noOfDays, hours, minutes, noOfYears;
-                    if (interval.contains("days")) {
-                        String[] arr = interval.split(" ");
-                        noOfDays = Integer.parseInt(arr[0]);
-                        zdt1 = zdt1.plusDays(noOfDays);
-                    } else if (interval.contains("years")) {
-                        String[] arr = interval.split(" ");
-                        noOfYears = Integer.parseInt(arr[0]);
-                        zdt1 = zdt1.plusYears(noOfYears);
-                    } else {
-                        String[] arr = interval.split(":");
-                        hours = Integer.parseInt(arr[0]);
-                        minutes = Integer.parseInt(arr[1]);
-                        zdt1 = zdt1.plusHours(hours).plusMinutes(minutes);
+        if (FilterFragment.set.contains(curr.platform.split("\\.")[0]) || FilterFragment.set.size() == 0 || FilterFragment.set.contains("other")) {
+            holder.contest_title.setText(curr.contest_title);
+            holder.platform.setText(curr.platform);
+            holder.starting_time.setText(modifiedTime);
+            holder.duration.setText(curr.duration);
+            ImageButton imageButton = holder.imageButton;
+            if (curr.label.equals("past")) {
+                holder.reminderTv.setText("Contest over");
+                imageButton.setImageResource(R.drawable.ic_contest_over);
+                imageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast toast = Toast.makeText(context, "Contest already over", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
+                });
+            } else {
+                imageButton.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_INSERT);
+                        intent.setType("vnd.android.cursor.item/event");
 
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, zdt1.toInstant().toEpochMilli());
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+                        String properStartDateTime = "";
+                        int month = LocalDate.now().getMonth().ordinal(), year = LocalDate.now().getYear();
+                        String beginTime = holder.starting_time.getText().toString();
+                        String[] timeDetailsArray = beginTime.split(" ");
+                        String[] dateDetailsArray = timeDetailsArray[0].split("\\.");
+                        Log.d("timeDetailsArray:", Arrays.toString(timeDetailsArray));
+                        if (Integer.parseInt(dateDetailsArray[1]) < month) {
+                            properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year + 1) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
+                        } else
+                            properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
 
-                    intent.putExtra(CalendarContract.Events.TITLE, holder.contest_title.getText().toString());
-                    intent.putExtra(CalendarContract.Events.DESCRIPTION, "This is a coding contest");
-                    intent.putExtra(CalendarContract.Events.EVENT_LOCATION, holder.platform.getText().toString());
-                    intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+                        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy E HH:mm");
+                        LocalDateTime properStartDateTimeObj = LocalDateTime.parse(properStartDateTime, df);
+                        ZonedDateTime zdt1 = ZonedDateTime.of(properStartDateTimeObj, ZoneId.systemDefault());
 
-                    context.startActivity(intent);
-                }
-            });
-            ImageButton shareBtn = holder.shareButton;
-            shareBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    String shareBody = context.getText(R.string.contest_title) + " " + curr.contest_title + "\n" + context.getText(R.string.contest_platform) + " " + curr.platform + "\n" + context.getText(R.string.contest_start_time) + " " + curr.start_time + "\n" + context.getText(R.string.contest_duration) + " " + curr.duration;
-                    String shareSub = "Sharing contest details";
-                    intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
-                    intent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                    context.startActivity(Intent.createChooser(intent, "Share via"));
-                }
-            });
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
+
+                        String interval = holder.duration.getText().toString();
+                        int noOfDays, hours, minutes, noOfYears;
+                        if (interval.contains("days")) {
+                            String[] arr = interval.split(" ");
+                            noOfDays = Integer.parseInt(arr[0]);
+                            zdt1 = zdt1.plusDays(noOfDays);
+                        } else if (interval.contains("years")) {
+                            String[] arr = interval.split(" ");
+                            noOfYears = Integer.parseInt(arr[0]);
+                            zdt1 = zdt1.plusYears(noOfYears);
+                        } else {
+                            String[] arr = interval.split(":");
+                            hours = Integer.parseInt(arr[0]);
+                            minutes = Integer.parseInt(arr[1]);
+                            zdt1 = zdt1.plusHours(hours).plusMinutes(minutes);
+                        }
+
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, zdt1.toInstant().toEpochMilli());
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+
+                        intent.putExtra(CalendarContract.Events.TITLE, holder.contest_title.getText().toString());
+                        intent.putExtra(CalendarContract.Events.DESCRIPTION, "This is a coding contest");
+                        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, holder.platform.getText().toString());
+                        intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+
+                        context.startActivity(intent);
+                    }
+                });
+                ImageButton shareBtn = holder.shareButton;
+                shareBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        String shareBody = context.getText(R.string.contest_title) + " " + curr.contest_title + "\n" + context.getText(R.string.contest_platform) + " " + curr.platform + "\n" + context.getText(R.string.contest_start_time) + " " + curr.start_time + "\n" + context.getText(R.string.contest_duration) + " " + curr.duration;
+                        String shareSub = "Sharing contest details";
+                        intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+                        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                        context.startActivity(Intent.createChooser(intent, "Share via"));
+                    }
+                });
+            }
+        } else {
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
         }
     }
 

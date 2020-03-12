@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout="@layout/past"
             android:text="PAST"
-            android:verticalScrollbarPosition="left"
             android:visibility="visible"
             tools:visibility="visible" />
 
