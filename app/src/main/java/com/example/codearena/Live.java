@@ -32,8 +32,8 @@ public class Live extends Fragment {
     private RecyclerView recyclerView;
     private List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
-    private TextView emptyList;
     private RestClient rc;
+    private TextView emptyList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class Live extends Fragment {
         rc = new RestClient();
         rc.execute(getString(R.string.liveUrl));
     }
-
 
     @Nullable
     @Override
@@ -116,5 +115,4 @@ public class Live extends Fragment {
         }
 
     }
-
 }

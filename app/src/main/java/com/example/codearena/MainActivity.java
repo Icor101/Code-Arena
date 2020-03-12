@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         loadingDialog = new LoadingDialog(MainActivity.this);
-
     }
 
     @Override
@@ -107,6 +106,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_developers:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, developersFragment).commit();
+                break;
+            case  R.id.nav_feedback:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"riyamish16@mgail.com","mit.aniket98@gmail.com","apurvsingh98@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT,"Feedback");
+                intent.setType("message/rfc822");
+                intent.setPackage("com.google.android.gm");
+                startActivity(Intent.createChooser(intent,"Send Email:"));
                 break;
 
         }
