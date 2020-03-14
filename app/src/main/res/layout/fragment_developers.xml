@@ -9,22 +9,22 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:elevation="10dp">
+        app:layout_constraintVertical_bias="0.35">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="135dp">
 
-             <ImageView
+            <ImageView
                 android:id="@+id/riya_image"
-                android:layout_width="74dp"
+                android:layout_width="90dp"
                 android:layout_height="101dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="22dp"
@@ -73,14 +73,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:elevation="10dp">
+        app:layout_constraintVertical_bias="0.35">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
 
             <ImageView
                 android:id="@+id/apurv_image"
-                android:layout_width="74dp"
+                android:layout_width="90dp"
                 android:layout_height="101dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="22dp"
@@ -120,11 +120,11 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="13dp"
-                android:layout_marginLeft="13dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="52dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="47dp"
                 android:layout_toEndOf="@+id/apurv_image"
                 android:layout_toRightOf="@+id/apurv_image"
                 android:text="https://www.linkedin.com/in/apurvsingh98/"
@@ -137,14 +137,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:elevation="10dp">
+        app:layout_constraintVertical_bias="0.35">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -152,11 +152,11 @@
 
             <ImageView
                 android:id="@+id/aniket_image"
-                android:layout_width="74dp"
+                android:layout_width="90dp"
                 android:layout_height="101dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="22dp"
-                app:srcCompat="@drawable/apurv" />
+                app:srcCompat="@drawable/aniket" />
 
             <TextView
                 android:id="@+id/Aniket"
@@ -184,14 +184,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_marginBottom="51dp"
                 android:layout_toEndOf="@+id/aniket_image"
                 android:layout_toRightOf="@+id/aniket_image"
-                android:text="dummyLink"
+                android:text="https://www.linkedin.com/in/aniket98/"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorPrimary" />
         </RelativeLayout>

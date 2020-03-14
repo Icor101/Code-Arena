@@ -46,6 +46,12 @@ public class Live extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.live, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         emptyList = view.findViewById(R.id.emptyList);
         recyclerView = view.findViewById(R.id.my_recycler_view_live);
         recyclerView.setAdapter(mAdapter);
@@ -56,7 +62,6 @@ public class Live extends Fragment {
             emptyList.setVisibility(View.VISIBLE);
         else
             emptyList.setVisibility(View.INVISIBLE);
-        return view;
     }
 
     class RestClient extends AsyncTask<String, Integer, Void> {
