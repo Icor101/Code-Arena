@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void run() {
                             loadingDialog.dismissDialog();
-                            startActivity(intent);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+                            ;
                         }
                     }, 2000);
                 } else {
@@ -94,23 +95,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         loadingDialog = new LoadingDialog(MainActivity.this);
+        tabLayoutScreenFragment = new TabLayoutScreenFragment();
+        aboutUsFragment = new AboutUsFragment();
+        filterFragment = new FilterFragment();
+        developersFragment = new DevelopersFragment();
+        noInternetFragment = new NoInternetFragment();
         if (checkConnection()) {
-            tabLayoutScreenFragment = new TabLayoutScreenFragment();
-            aboutUsFragment = new AboutUsFragment();
-            filterFragment = new FilterFragment();
-            developersFragment = new DevelopersFragment();
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                 navigationView.setCheckedItem(R.id.nav_home);
             }
         } else {
-            tabLayoutScreenFragment = new TabLayoutScreenFragment();
-            aboutUsFragment = new AboutUsFragment();
-            filterFragment = new FilterFragment();
-            developersFragment = new DevelopersFragment();
-            noInternetFragment = new NoInternetFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, noInternetFragment).commit();
         }
     }
