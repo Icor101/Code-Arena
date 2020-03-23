@@ -105,15 +105,15 @@ public class Live extends Fragment {
             myDataset = new ArrayList<>();
             try {
                 jsonArray = new JSONArray(res);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        myDataset.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), ContestDetails.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            for (int i = 0; i < jsonArray.length(); i++) {
-                try {
-                    myDataset.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), ContestDetails.class));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
             return null;
         }
