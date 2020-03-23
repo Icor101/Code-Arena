@@ -32,6 +32,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
+    static boolean past=false,live=false,future=false;
 
 
     @NonNull
@@ -61,6 +62,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.duration.setText(curr.duration);
             ImageButton imageButton = holder.imageButton;
             if (curr.label.equals("past")) {
+                past=true;
                 holder.reminderTv.setText("Contest over");
                 imageButton.setImageResource(R.drawable.ic_contest_over);
                 imageButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +73,10 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     }
                 });
             } else {
+                if(curr.label.equals("live"))
+                    live=true;
+                else if(curr.label.equals("future"))
+                    future=true;
                 imageButton.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -141,6 +147,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
         }
+
     }
 
     @Override

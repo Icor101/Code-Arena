@@ -31,8 +31,7 @@ public class TabLayoutScreenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("CodeArena");
-        View view = inflater.inflate(R.layout.tab_layout_screen, container, false);
-        return view;
+        return inflater.inflate(R.layout.tab_layout_screen, container, false);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class TabLayoutScreenFragment extends Fragment {
         viewPager = view.findViewById(R.id.pager);
         tabLayout = view.findViewById(R.id.tabs);
 
-        pagerAdapter = new FragmentAdapter(getFragmentManager());
+        pagerAdapter = new FragmentAdapter(getChildFragmentManager());
 
         pagerAdapter.addFragment(past, "PAST");
         pagerAdapter.addFragment(live, "LIVE");

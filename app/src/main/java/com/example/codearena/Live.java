@@ -45,13 +45,12 @@ public class Live extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.live, container, false);
-        return view;
+        return inflater.inflate(R.layout.live, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        //super.onViewCreated(view, savedInstanceState);
         emptyList = view.findViewById(R.id.emptyList);
         recyclerView = view.findViewById(R.id.my_recycler_view_live);
         recyclerView.setAdapter(mAdapter);
