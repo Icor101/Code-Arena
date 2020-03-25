@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         noInternetFragment = new NoInternetFragment();
         if (checkConnection()) {
             if (savedInstanceState == null) {
-                //loaded = true;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                 navigationView.setCheckedItem(R.id.nav_home);
             }
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                if (checkConnection()) {
+                if (checkConnection() || (Live.myDataset!=null && Past.myDataset!=null && Future.myDataset!=null)) {
                     transaction.replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                     //transaction.addToBackStack("cache");
                     this.findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
