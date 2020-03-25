@@ -2,7 +2,6 @@ package com.example.codearena;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ public class Live extends Fragment {
         super.onCreate(savedInstanceState);
         rc = new RestClient();
         rc.execute(getString(R.string.liveUrl));
-        Log.d("Just Checking","called everytime");
     }
 
     @Nullable

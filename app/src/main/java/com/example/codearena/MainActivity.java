@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     AboutUsFragment aboutUsFragment;
     FilterFragment filterFragment;
     DevelopersFragment developersFragment;
+    //boolean loaded = false;
 
     public static synchronized MainActivity getInstance() {
         return mInstance;
@@ -117,8 +118,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                if (checkConnection() || !MyAdapter.mDataSet.isEmpty()) {
+                if (checkConnection()) {
                     transaction.replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
+                    //transaction.addToBackStack("cache");
                     this.findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
                     break;
                 } else {

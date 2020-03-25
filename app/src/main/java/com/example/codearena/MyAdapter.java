@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private Context context;
-    public static List<ContestDetails> mDataSet = new ArrayList<>();
+    private List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
     static boolean past=false,live=false,future=false;
 
@@ -51,9 +51,30 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         String startDateTime = curr.start_time;
         String[] timeDetailsArr = startDateTime.split(" ");
         String time = timeDetailsArr[timeDetailsArr.length - 1];
-        LocalTime startTime = LocalTime.parse(time);
+        LocalTime startTime = LocalTime.parse(time),origTime = LocalTime.parse(time);
         startTime = startTime.plusHours(5).plusMinutes(30);
-        String modifiedTime = timeDetailsArr[0] + " " + timeDetailsArr[1] + " " + startTime.toString();
+        timeDetailsArr[0]+="."+LocalDate.now().getYear();
+        Log.d("Date:",timeDetailsArr[0]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate date = LocalDate.parse(timeDetailsArr[0],formatter);
+        if(startTime.isBefore(origTime)){
+            date=date.plusDays(1);
+            if(timeDetailsArr[1].toLowerCase().equals("mon"))
+                timeDetailsArr[1]="Tue";
+            else if(timeDetailsArr[1].toLowerCase().equals("tue"))
+                timeDetailsArr[1]="Wed";
+            else if(timeDetailsArr[1].toLowerCase().equals("wed"))
+                timeDetailsArr[1]="Thu";
+            else if(timeDetailsArr[1].toLowerCase().equals("thu"))
+                timeDetailsArr[1]="Fri";
+            else if(timeDetailsArr[1].toLowerCase().equals("fri"))
+                timeDetailsArr[1]="Sat";
+            else if(timeDetailsArr[1].toLowerCase().equals("sat"))
+                timeDetailsArr[1]="Sun";
+
+        }
+        DateTimeFormatter dummy = DateTimeFormatter.ofPattern("dd.MM.yy");
+        final String modifiedTime = dummy.format(date) + " " + timeDetailsArr[1] + " " + startTime.toString();
 
         if (FilterFragment.set.contains(curr.platform.split("\\.")[0]) || FilterFragment.set.size() == 0 || FilterFragment.set.contains("other")) {
             holder.contest_title.setText(curr.contest_title);
@@ -84,19 +105,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         Intent intent = new Intent(Intent.ACTION_INSERT);
                         intent.setType("vnd.android.cursor.item/event");
 
-                        String properStartDateTime = "";
-                        int month = LocalDate.now().getMonth().ordinal(), year = LocalDate.now().getYear();
-                        String beginTime = holder.starting_time.getText().toString();
-                        String[] timeDetailsArray = beginTime.split(" ");
-                        String[] dateDetailsArray = timeDetailsArray[0].split("\\.");
-                        Log.d("timeDetailsArray:", Arrays.toString(timeDetailsArray));
-                        if (Integer.parseInt(dateDetailsArray[1]) < month) {
-                            properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year + 1) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-                        } else
-                            properStartDateTime += dateDetailsArray[0] + "." + dateDetailsArray[1] + "." + (year) + " " + timeDetailsArray[1] + " " + timeDetailsArray[2];
-
-                        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy E HH:mm");
-                        LocalDateTime properStartDateTimeObj = LocalDateTime.parse(properStartDateTime, df);
+                        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yy E HH:mm");
+                        LocalDateTime properStartDateTimeObj = LocalDateTime.parse(modifiedTime, df);
                         ZonedDateTime zdt1 = ZonedDateTime.of(properStartDateTimeObj, ZoneId.systemDefault());
 
                         intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, zdt1.toInstant().toEpochMilli());
@@ -176,6 +186,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     MyAdapter(Context context, List<ContestDetails> myDataSet) {
         this.context = context;
+        //myDataSet.clear();
         mDataSet.addAll(myDataSet);
     }
 
