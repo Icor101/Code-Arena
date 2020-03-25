@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Past extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<ContestDetails> myDataset;
+    public static List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
     private RestClient rc;
     private TextView emptyList;

@@ -8,15 +8,16 @@
 
     <TextView
         android:id="@+id/about_us"
-        android:layout_width="403dp"
-        android:layout_height="331dp"
+        android:layout_width="394dp"
+        android:layout_height="327dp"
         android:text="@string/about_us_tv_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.819" />
 
     <ImageView
         android:id="@+id/imageView"

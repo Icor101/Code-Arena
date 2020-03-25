@@ -13,7 +13,7 @@ public class NoInternetFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("CodeArena");
+        getActivity().setTitle("Code Arena");
         return inflater.inflate(R.layout.fragment_no_internet,container,false);
     }
 }

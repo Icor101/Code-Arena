@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     AboutUsFragment aboutUsFragment;
     FilterFragment filterFragment;
     DevelopersFragment developersFragment;
-    //boolean loaded = false;
 
     public static synchronized MainActivity getInstance() {
         return mInstance;
@@ -62,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void run() {
                             loadingDialog.dismissDialog();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
+                            tabLayoutScreenFragment = new TabLayoutScreenFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                         }
                     }, 2000);
                     //loaded = true;
@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         noInternetFragment = new NoInternetFragment();
         if (checkConnection()) {
             if (savedInstanceState == null) {
-                //loaded = true;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                 navigationView.setCheckedItem(R.id.nav_home);
             }
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                if (checkConnection()) {
+                if (checkConnection() || (Live.myDataset!=null && Past.myDataset!=null && Future.myDataset!=null)) {
                     transaction.replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                     //transaction.addToBackStack("cache");
                     this.findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
@@ -170,6 +169,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return ConnectivityReceiver.isConnected();
     }
 }
-
-
-
