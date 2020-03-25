@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private Context context;
-    private List<ContestDetails> mDataSet = new ArrayList<>();
+    public static List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
     static boolean past=false,live=false,future=false;
 
@@ -177,5 +177,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     MyAdapter(Context context, List<ContestDetails> myDataSet) {
         this.context = context;
         mDataSet.addAll(myDataSet);
+    }
+
+    public MyAdapter() {
     }
 }

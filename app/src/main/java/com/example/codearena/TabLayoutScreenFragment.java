@@ -30,7 +30,7 @@ public class TabLayoutScreenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("CodeArena");
+        getActivity().setTitle("Code Arena");
         return inflater.inflate(R.layout.tab_layout_screen, container, false);
     }
 

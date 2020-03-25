@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LoadingDialog loadingDialog;
     DrawerLayout drawer;
     NoInternetFragment noInternetFragment;
-    boolean status;
     static TabLayoutScreenFragment tabLayoutScreenFragment;
     AboutUsFragment aboutUsFragment;
     FilterFragment filterFragment;
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         public void run() {
                             loadingDialog.dismissDialog();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabLayoutScreenFragment()).commit();
-                            ;
                         }
                     }, 2000);
+                    //loaded = true;
                 } else {
                     Toast.makeText(this, "Sorry! Not connected to the internet", Toast.LENGTH_SHORT).show();
                 }
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         noInternetFragment = new NoInternetFragment();
         if (checkConnection()) {
             if (savedInstanceState == null) {
+                //loaded = true;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                 navigationView.setCheckedItem(R.id.nav_home);
             }
@@ -113,25 +114,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                if (checkConnection()) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
+                if (checkConnection() || !MyAdapter.mDataSet.isEmpty()) {
+                    transaction.replace(R.id.fragment_container, tabLayoutScreenFragment).commit();
                     this.findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
                     break;
                 } else {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, noInternetFragment).commit();
+                    transaction.replace(R.id.fragment_container, noInternetFragment).commit();
                     this.findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
                     break;
                 }
             case R.id.nav_about_us:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, aboutUsFragment).commit();
+                transaction.replace(R.id.fragment_container, aboutUsFragment).commit();
+                transaction.addToBackStack(null);
                 break;
             case R.id.nav_filter:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, filterFragment).commit();
+                transaction.replace(R.id.fragment_container, filterFragment).commit();
+                transaction.addToBackStack(null);
                 break;
             case R.id.nav_developers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, developersFragment).commit();
+                transaction.replace(R.id.fragment_container, developersFragment).commit();
+                transaction.addToBackStack(null);
                 break;
             case R.id.nav_feedback:
                 Intent intent = new Intent(Intent.ACTION_SEND);
