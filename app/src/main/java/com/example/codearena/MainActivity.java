@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     AboutUsFragment aboutUsFragment;
     FilterFragment filterFragment;
     DevelopersFragment developersFragment;
-    //boolean loaded = false;
 
     public static synchronized MainActivity getInstance() {
         return mInstance;

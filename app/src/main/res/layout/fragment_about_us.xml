@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_on_primary">
+    android:background="@color/cardview_light_background">
 
     <TextView
         android:id="@+id/about_us"
-        android:layout_width="403dp"
-        android:layout_height="331dp"
+        android:layout_width="370dp"
+        android:layout_height="327dp"
         android:text="@string/about_us_tv_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.834" />
 
     <ImageView
         android:id="@+id/imageView"
