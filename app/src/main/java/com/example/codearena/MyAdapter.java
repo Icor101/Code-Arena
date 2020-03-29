@@ -32,7 +32,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
-    static boolean past=false,live=false,future=false;
+    static boolean past = false, live = false, future = false;
 
 
     @NonNull
@@ -51,26 +51,26 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         String startDateTime = curr.start_time;
         String[] timeDetailsArr = startDateTime.split(" ");
         String time = timeDetailsArr[timeDetailsArr.length - 1];
-        LocalTime startTime = LocalTime.parse(time),origTime = LocalTime.parse(time);
+        LocalTime startTime = LocalTime.parse(time), origTime = LocalTime.parse(time);
         startTime = startTime.plusHours(5).plusMinutes(30);
-        timeDetailsArr[0]+="."+LocalDate.now().getYear();
-        Log.d("Date:",timeDetailsArr[0]);
+        timeDetailsArr[0] += "." + LocalDate.now().getYear();
+        Log.d("Date:", timeDetailsArr[0]);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate date = LocalDate.parse(timeDetailsArr[0],formatter);
-        if(startTime.isBefore(origTime)){
-            date=date.plusDays(1);
-            if(timeDetailsArr[1].toLowerCase().equals("mon"))
-                timeDetailsArr[1]="Tue";
-            else if(timeDetailsArr[1].toLowerCase().equals("tue"))
-                timeDetailsArr[1]="Wed";
-            else if(timeDetailsArr[1].toLowerCase().equals("wed"))
-                timeDetailsArr[1]="Thu";
-            else if(timeDetailsArr[1].toLowerCase().equals("thu"))
-                timeDetailsArr[1]="Fri";
-            else if(timeDetailsArr[1].toLowerCase().equals("fri"))
-                timeDetailsArr[1]="Sat";
-            else if(timeDetailsArr[1].toLowerCase().equals("sat"))
-                timeDetailsArr[1]="Sun";
+        LocalDate date = LocalDate.parse(timeDetailsArr[0], formatter);
+        if (startTime.isBefore(origTime)) {
+            date = date.plusDays(1);
+            if (timeDetailsArr[1].toLowerCase().equals("mon"))
+                timeDetailsArr[1] = "Tue";
+            else if (timeDetailsArr[1].toLowerCase().equals("tue"))
+                timeDetailsArr[1] = "Wed";
+            else if (timeDetailsArr[1].toLowerCase().equals("wed"))
+                timeDetailsArr[1] = "Thu";
+            else if (timeDetailsArr[1].toLowerCase().equals("thu"))
+                timeDetailsArr[1] = "Fri";
+            else if (timeDetailsArr[1].toLowerCase().equals("fri"))
+                timeDetailsArr[1] = "Sat";
+            else if (timeDetailsArr[1].toLowerCase().equals("sat"))
+                timeDetailsArr[1] = "Sun";
 
         }
         DateTimeFormatter dummy = DateTimeFormatter.ofPattern("dd.MM.yy");
@@ -83,7 +83,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.duration.setText(curr.duration);
             ImageButton imageButton = holder.imageButton;
             if (curr.label.equals("past")) {
-                past=true;
+                past = true;
                 holder.reminderTv.setText("Contest over");
                 imageButton.setImageResource(R.drawable.ic_contest_over);
                 imageButton.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +94,10 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     }
                 });
             } else {
-                if(curr.label.equals("live"))
-                    live=true;
-                else if(curr.label.equals("future"))
-                    future=true;
+                if (curr.label.equals("live"))
+                    live = true;
+                else if (curr.label.equals("future"))
+                    future = true;
                 imageButton.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -145,7 +145,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
-                        String shareBody = context.getText(R.string.contest_title) + " " + curr.contest_title + "\n" + context.getText(R.string.contest_platform) + " " + curr.platform + "\n" + context.getText(R.string.contest_start_time) + " " + curr.start_time + "\n" + context.getText(R.string.contest_duration) + " " + curr.duration;
+                        String shareBody = context.getText(R.string.contest_title) + " " + curr.contest_title + "\n" + context.getText(R.string.contest_platform) + " " + curr.platform + "\n" + context.getText(R.string.contest_start_time) + " " + modifiedTime + "\n" + context.getText(R.string.contest_duration) + " " + curr.duration;
                         String shareSub = "Sharing contest details";
                         intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                         intent.putExtra(Intent.EXTRA_TEXT, shareBody);
@@ -155,7 +155,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         } else {
             holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
 
     }
