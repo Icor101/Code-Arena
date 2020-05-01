@@ -12,6 +12,7 @@
         android:layout_height="327dp"
         android:text="@string/about_us_tv_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:fontFamily="@font/trykker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"

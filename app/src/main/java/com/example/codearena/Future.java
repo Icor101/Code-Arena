@@ -33,7 +33,7 @@ public class Future extends Fragment {
     public static List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
     private RestClient rc;
-    private TextView emptyList;
+    private TextView emptyList, noResult;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,15 +52,17 @@ public class Future extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emptyList = view.findViewById(R.id.emptyList);
+        noResult = view.findViewById(R.id.noResult);
         recyclerView = view.findViewById(R.id.my_recycler_view_future);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if (myDataset != null && myDataset.isEmpty())
+        if (myDataset != null && myDataset.isEmpty()) {
             emptyList.setVisibility(View.VISIBLE);
-        else
+        } else
             emptyList.setVisibility(View.INVISIBLE);
+
     }
 
     class RestClient extends AsyncTask<String, Integer, Void> {

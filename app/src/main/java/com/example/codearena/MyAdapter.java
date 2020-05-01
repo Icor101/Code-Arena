@@ -9,9 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,12 +25,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.RecyclerView;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
@@ -33,7 +33,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<ContestDetails> mDataSet = new ArrayList<>();
     private MyViewHolder viewHolder;
     static boolean past = false, live = false, future = false;
-
 
     @NonNull
     @Override
@@ -46,6 +45,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+
         final ContestDetails curr = mDataSet.get(position);
         Log.d("Set", FilterFragment.set.toString());
         String startDateTime = curr.start_time;
@@ -78,9 +78,46 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         if (FilterFragment.set.contains(curr.platform.split("\\.")[0]) || FilterFragment.set.size() == 0 || FilterFragment.set.contains("other")) {
             holder.contest_title.setText(curr.contest_title);
-            holder.platform.setText(curr.platform);
             holder.starting_time.setText(modifiedTime);
             holder.duration.setText(curr.duration);
+            String temp = curr.platform.split("\\.")[0];
+            switch (temp) {
+                case "codechef":
+                    holder.logo.setImageResource(R.drawable.codechef_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "hackerrank":
+                    holder.logo.setImageResource(R.drawable.hackerrank_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "hackerearth":
+                    holder.logo.setImageResource(R.drawable.hackerearth_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "codeforces":
+                    holder.logo.setImageResource(R.drawable.codeforces_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "topcoder":
+                    holder.logo.setImageResource(R.drawable.topcoder_logo1);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "atcoder":
+                    holder.logo.setImageResource(R.drawable.atcoder_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "spoj":
+                    holder.logo.setImageResource(R.drawable.spoj_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                case "leetcode":
+                    holder.logo.setImageResource(R.drawable.leetcode_logo);
+                    holder.platform.setVisibility(View.GONE);
+                    break;
+                default:
+                    holder.logo.setImageResource(R.drawable.default_logo);
+                    holder.platform.setText(curr.platform);
+            }
             ImageButton imageButton = holder.imageButton;
             if (curr.label.equals("past")) {
                 past = true;
@@ -153,11 +190,11 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     }
                 });
             }
+
         } else {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
-
     }
 
     @Override
@@ -169,10 +206,12 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         TextView contest_title, starting_time, platform, duration, reminderTv;
         ImageButton imageButton, shareButton;
+        ImageView logo;
         LinearLayout parent;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            logo = itemView.findViewById(R.id.logo);
             parent = itemView.findViewById(R.id.parent);
             contest_title = itemView.findViewById(R.id.contest_title);
             starting_time = itemView.findViewById(R.id.starting_time);
@@ -186,7 +225,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     MyAdapter(Context context, List<ContestDetails> myDataSet) {
         this.context = context;
-        //myDataSet.clear();
         mDataSet.addAll(myDataSet);
     }
 

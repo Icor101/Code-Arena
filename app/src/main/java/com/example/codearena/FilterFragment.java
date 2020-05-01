@@ -30,6 +30,7 @@ public class FilterFragment extends Fragment {
         final CheckBox codeforces = view.findViewById(R.id.codeforces);
         final CheckBox spoj = view.findViewById(R.id.spoj);
         final CheckBox atcoder = view.findViewById(R.id.atcoder);
+        final CheckBox leetcode = view.findViewById(R.id.leetcode);
         final CheckBox other = view.findViewById(R.id.other);
 
         codechef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -102,7 +103,16 @@ public class FilterFragment extends Fragment {
                 }
             }
         });
-
+        leetcode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (leetcode.isChecked()){
+                    set.add("leetcode");
+                }else{
+                    set.remove("leetcode");
+                }
+            }
+        });
         other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

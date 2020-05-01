@@ -1,5 +1,6 @@
 package com.example.codearena;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,10 +31,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Live extends Fragment {
     private RecyclerView recyclerView;
-    public static List<ContestDetails> myDataset;
+    static List<ContestDetails> myDataset;
     private RecyclerView.Adapter mAdapter;
     private RestClient rc;
-    private TextView emptyList;
+    private TextView emptyList, noResult;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,16 +51,16 @@ public class Live extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //super.onViewCreated(view, savedInstanceState);
         emptyList = view.findViewById(R.id.emptyList);
+        noResult = view.findViewById(R.id.noResult);
         recyclerView = view.findViewById(R.id.my_recycler_view_live);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if (myDataset != null && myDataset.isEmpty())
+        if (myDataset != null && myDataset.isEmpty()) {
             emptyList.setVisibility(View.VISIBLE);
-        else
+        } else
             emptyList.setVisibility(View.INVISIBLE);
     }
 

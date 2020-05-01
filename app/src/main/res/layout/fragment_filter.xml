@@ -9,6 +9,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <CheckBox
+        android:id="@+id/leetcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="LeetCode"
+        app:fontFamily="@font/trykker"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/atcoder" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -18,6 +31,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:fontFamily="@font/trykker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="CodeChef"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -40,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="HackerEarth"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -52,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="HackerRank"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -64,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="CodeForces"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="TopCoder"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Spoj"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="AtCoder"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +129,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Other"
+        app:fontFamily="@font/trykker"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atcoder" />
+        app:layout_constraintTop_toBottomOf="@+id/leetcode" />
 </androidx.constraintlayout.widget.ConstraintLayout>
