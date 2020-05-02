@@ -116,6 +116,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     break;
                 default:
                     holder.logo.setImageResource(R.drawable.default_logo);
+                    holder.platform.setVisibility(View.VISIBLE);
                     holder.platform.setText(curr.platform);
             }
             ImageButton imageButton = holder.imageButton;

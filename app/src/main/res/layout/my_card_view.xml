@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="410dp"
-        android:layout_height="232dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="2dp"
@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingBottom="5sp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="16sp"
@@ -36,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingBottom="5sp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"
                 android:gravity="center"
+                android:paddingBottom="5sp"
                 android:text="TextView"
                 card_view:fontFamily="@font/trykker" />
 
@@ -57,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"
                 android:gravity="center"
+                android:paddingBottom="5sp"
                 card_view:fontFamily="@font/trykker" />
 
             <ImageView
@@ -66,6 +70,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="false"
                 android:foregroundGravity="center"
+                android:paddingBottom="5sp"
                 tools:srcCompat="@drawable/default_logo" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,6 +86,7 @@
                     android:layout_toStartOf="@+id/reminderTextView"
                     android:layout_toLeftOf="@+id/reminderTextView"
                     android:background="@color/cardview_light_background"
+                    android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toStartOf="@+id/reminderTextView"
                     card_view:layout_constraintHorizontal_bias="0.75"
@@ -95,6 +101,7 @@
                     android:layout_height="31dp"
                     android:layout_marginEnd="136dp"
                     android:layout_marginRight="136dp"
+                    android:orientation="vertical"
                     android:text="Set Reminder"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textSize="20sp"
@@ -110,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
+                    android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintHorizontal_bias="0.866"
