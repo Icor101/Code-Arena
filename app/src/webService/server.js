@@ -33,7 +33,7 @@ function scrape(body,num){
 			json.label = "future";
 		json.start_time = nodeList[i].querySelector('.col-md-5.col-sm-12.start-time').text.trim();
 		json.duration = nodeList[i].querySelector('.col-md-3.col-sm-6.duration').text.trim();
-		json.contest_title = nodeList[i].querySelector('.contest_title').querySelector('a').text.trim();
+		json.contest_title = nodeList[i].querySelector('.contest_title').text.trim();
 		json.platform = nodeList[i].querySelector('.text-muted').text.trim();
 
 		if(json.contest_title==="")
