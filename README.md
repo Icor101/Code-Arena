@@ -1,4 +1,2 @@
 # Code-Arena
-Code Arena is an easy-to-use android app for competitive programmers where they can find all the
-information related to the ongoing/upcoming contests happening across some of the most popular coding
-platforms.
+Code Arena is a user-friendly android app that provides an easy-to-use dashboard for competitive programmers where they can find all the required information about most of the live/upcoming programming contests from a wide variety of competitive coding websites. The app provides a segregated list of Past/Live/Future contests from a number of popular coding websites. It lets the users set reminders by creating events in Google Calendar & share details about contests via apps like WhatsApp, Gmail etc without any hassle. The app also enables its users to filter the list of contests according to their preferred coding platforms.
